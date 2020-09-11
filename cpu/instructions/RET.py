@@ -5,7 +5,9 @@ def _0xC0(CPU):
         lsb = CPU.stack.pop()
         CPU.pc = (msb << 8) | lsb
         CPU.cycles = 20
-    CPU.pc += 1
+    else:
+        CPU.pc += 1
+        CPU.cycles = 8
     CPU.mnemonic = "RET NZ"
 
 def _0xD0(CPU):
@@ -15,5 +17,7 @@ def _0xD0(CPU):
         lsb = CPU.stack.pop()
         CPU.pc = (msb << 8) | lsb
         CPU.cycles = 20
-    CPU.pc += 1
+    else:
+        CPU.pc += 1
+        CPU.cycles = 8
     CPU.mnemonic = "RET NC"

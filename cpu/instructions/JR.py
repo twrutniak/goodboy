@@ -6,9 +6,9 @@ def _0x20(CPU):
         CPU.pc = CPU.pc + val
         CPU.cycles = 12
     else:
+        CPU.pc += 2
         CPU.cycles = 8
     self.mnemonic = "JR NZ i8"
-    CPU.pc += 2
     return
 
 def _0x30(CPU):
@@ -19,7 +19,7 @@ def _0x30(CPU):
         CPU.pc = CPU.pc + val
         CPU.cycles = 12
     else:
+        CPU.pc += 2
         CPU.cycles = 8
     self.mnemonic = "JR NZ i8"
-    CPU.pc += 2
     return

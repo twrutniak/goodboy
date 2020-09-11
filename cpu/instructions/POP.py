@@ -1,4 +1,5 @@
 def _0xC1(CPU):
+    CPU.pc += 1
     msb = CPU.stack.pop()
     lsb = CPU.stack.pop()
 
@@ -7,9 +8,9 @@ def _0xC1(CPU):
 
     CPU.mnemonic = "POP BC {}{}".format(str(hex(msb)), str(hex(lsb)))
     CPU.cycles = 12
-    CPU.pc += 1
 
 def _0xD1(CPU):
+    CPU.pc += 1
     msb = CPU.stack.pop()
     lsb = CPU.stack.pop()
 
@@ -18,9 +19,9 @@ def _0xD1(CPU):
 
     CPU.mnemonic = "POP DE {}{}".format(str(hex(msb)), str(hex(lsb)))
     CPU.cycles = 12
-    CPU.pc += 1
 
 def _0xE1(CPU):
+    CPU.pc += 1
     msb = CPU.stack.pop()
     lsb = CPU.stack.pop()
 
@@ -29,9 +30,9 @@ def _0xE1(CPU):
 
     CPU.mnemonic = "POP HL {}{}".format(str(hex(msb)), str(hex(lsb)))
     CPU.cycles = 12
-    CPU.pc += 1
 
 def _0xF1(CPU):
+    CPU.pc += 1
     msb = CPU.stack.pop()
     lsb = CPU.stack.pop()
 
@@ -46,4 +47,3 @@ def _0xF1(CPU):
 
     CPU.mnemonic = "POP AF {}{}".format(str(hex(msb)), str(hex(lsb)))
     CPU.cycles = 12
-    CPU.pc += 1

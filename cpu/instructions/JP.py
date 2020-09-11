@@ -5,8 +5,8 @@ def _0xC2(CPU):
         lsb = CPU.memory[CPU + 1]
         CPU.pc = (msb << 8) | lsb
     else:
+        CPU.pc += 3
         CPU.cycles = 12
-    CPU.pc += 3
     CPU.mnemonic = "JP NZ, u16"
 
 def _0xD2(CPU):
@@ -16,8 +16,8 @@ def _0xD2(CPU):
         lsb = CPU.memory[CPU + 1]
         CPU.pc = (msb << 8) | lsb
     else:
+        CPU.pc += 3
         CPU.cycles = 12
-    CPU.pc += 3
     CPU.mnemonic = "JP NC, u16"
 
 def _0xC3(CPU):
@@ -27,4 +27,3 @@ def _0xC3(CPU):
 
     CPU.mnemonic = "JP u16"
     CPU.cycles = 16
-    CPU.pc += 3
