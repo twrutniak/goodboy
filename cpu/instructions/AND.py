@@ -84,3 +84,69 @@ def _0xA4(CPU):
     CPU.mnemonic = "AND A,H"
     CPU.cycles = 4
 
+def _0xA5(CPU):
+    CPU.pc += 1
+    val1 = CPU.registers["A"]
+    val2 = CPU.registers["L"]
+    val = val1 & val2
+
+    if val == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["HC"] = 1
+    CPU.flags["S"] = 0
+    CPU.flags["C"] = 0
+    CPU.registers["A"] = val
+    CPU.mnemonic = "AND A,L"
+    CPU.cycles = 4
+
+def _0xA6(CPU):
+    CPU.pc += 1
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    val1 = CPU.registers["A"]
+    val2 = CPU.memory[addr]
+    val = val1 & val2
+
+    if val == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["HC"] = 1
+    CPU.flags["S"] = 0
+    CPU.flags["C"] = 0
+    CPU.registers["A"] = val
+    CPU.mnemonic = "AND A,(HL)"
+    CPU.cycles = 8
+
+def _0xE6(CPU):
+    val1 = CPU.registers["A"]
+    val2 = CPU.memory[CPU.pc + 1]    
+    CPU.pc += 2
+    val = val1 & val2
+
+    if val == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["HC"] = 1
+    CPU.flags["S"] = 0
+    CPU.flags["C"] = 0
+    CPU.registers["A"] = val
+    CPU.mnemonic = "AND A, u8"
+    CPU.cycles = 8
+
+def _0xA7(CPU):
+    CPU.pc += 1
+    val = CPU.registers["A"] & CPU.registers["A"]
+
+    if val == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["HC"] = 1
+    CPU.flags["S"] = 0
+    CPU.flags["C"] = 0
+    CPU.registers["A"] = val
+    CPU.mnemonic = "AND A,A"
+    CPU.cycles = 4
