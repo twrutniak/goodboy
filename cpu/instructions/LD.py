@@ -1,3 +1,5 @@
+from .misc import *
+
 def _0x40(CPU):
     CPU.pc += 1
     CPU.registers["B"] = CPU.registers["B"]
@@ -340,3 +342,54 @@ def _0x77(CPU):
     CPU.memory[addr] = CPU.registers["A"]
     CPU.mnemonic = "LD (HL),A"
     CPU.cycles = 8
+
+def _0x08(CPU):
+    lsb = CPU.memory[CPU.pc + 1]
+    msb = CPU.memory[CPU.pc + 2]
+    addr = (msb << 8) | lsb
+    CPU.memory[addr] = CPU.stack[-2]
+    CPU.memory[addr + 1] = CPU.stack[-1]
+    CPU.pc += 3
+    CPU.mnemonic = "LD (u16),SP"
+    CPU.cycles = 20
+
+def _0x48(CPU):
+    CPU.pc += 1
+    CPU.registers["C"] = CPU.registers["B"]
+    CPU.mnemonic = "LD C,B"
+    CPU.cycles = 4
+
+def _0x58(CPU):
+    CPU.pc += 1
+    CPU.registers["E"] = CPU.registers["B"]
+    CPU.mnemonic = "LD E,B"
+    CPU.cycles = 4
+
+def _0x68(CPU):
+    CPU.pc += 1
+    CPU.registers["L"] = CPU.registers["B"]
+    CPU.mnemonic = "LD L,B"
+    CPU.cycles = 4
+
+def _0x78(CPU):
+    CPU.pc += 1
+    CPU.registers["A"] = CPU.registers["B"]
+    CPU.mnemonic = "LD A,B"
+    CPU.cycles = 4
+
+def _0xf8(CPU):
+    val = convert_signed(CPU.memory[CPU.pc + 1])
+    CPU.pc += 2
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    addr = (msb << 8) | lsb
+    hcflag = check_halfcarry(addr, val, "16")
+    addr, cflag = check_carry(addr, val, "16")
+    CPU.registers["H"] = (addr & 0xff00) >> 8
+    CPU.registers["L"] = addr & 0xff
+    CPU.flags["Z"] = 0
+    CPU.flags["S"] = 0
+    CPU.flags["HC"] = hcflag
+    CPU.flags["C"] = cflag
+    CPU.mnemonic = "LD HL, SP + i8"
+    CPU.cycles = 4

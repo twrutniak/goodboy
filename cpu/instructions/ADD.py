@@ -173,3 +173,19 @@ def _0x87(CPU):
     CPU.mnemonic = "ADD A,A"
     CPU.cycles = 4
 
+def _0xE8(CPU):
+    val = convert_signed(CPU.memory[CPU.pc + 1])
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    addr = (msb << 8) | lsb
+    hcflag = check_halfcarry(addr, val, "16")
+    addr, cflag = check_carry(addr, val, "16")
+    CPU.stack.append(addr & 0xff)
+    CPU.stack.append((addr & 0xff00) >> 8)
+    CPU.flags["Z"] = 0
+    CPU.flags["S"] = 0
+    CPU.flags["HC"] = hcflag
+    CPU.flags["C"] = cflag
+    CPU.pc += 2
+    CPU.mnemonic = "ADD SP,i8"
+    CPU.cycles = 16

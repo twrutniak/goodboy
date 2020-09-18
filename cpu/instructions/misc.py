@@ -31,3 +31,8 @@ def check_halfcarry(val1, val2, datatype):
             flag = 0
     
     return flag
+
+def convert_signed(val):
+    if (val >> 7) == 1:
+        val = - (val & 127)
+    return val

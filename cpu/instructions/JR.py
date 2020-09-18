@@ -1,8 +1,9 @@
+from .misc import convert_signed
+
 def _0x20(CPU):
     val = CPU.memory[CPU.pc + 1]
     if CPU.flags["Z"] == 0:
-        if val > 0x7f:
-            val = val - 0xff
+        val = convert_signed(val)
         CPU.pc = CPU.pc + val
         CPU.cycles = 12
     else:
@@ -14,12 +15,42 @@ def _0x20(CPU):
 def _0x30(CPU):
     val = CPU.memory[CPU.pc + 1]
     if CPU.flags["C"] == 0:
-        if val > 0x7f:
-            val = val - 0xff
+        val = convert_signed(val)
         CPU.pc = CPU.pc + val
         CPU.cycles = 12
     else:
         CPU.pc += 2
         CPU.cycles = 8
-    self.mnemonic = "JR NZ i8"
+    self.mnemonic = "JR NC i8"
+    return
+
+def _0x18(CPU):
+    val = CPU.memory[CPU.pc + 1]
+        val = convert_signed(val)
+    CPU.pc = CPU.pc + val
+    CPU.mnemonic = "JR i8"
+    CPU.cycles = 12
+
+def _0x28(CPU):
+    val = CPU.memory[CPU.pc + 1]
+    if CPU.flags["Z"] == 1:
+        val = convert_signed(val)
+        CPU.pc = CPU.pc + val
+        CPU.cycles = 12
+    else:
+        CPU.pc += 2
+        CPU.cycles = 8
+    self.mnemonic = "JR Z i8"
+    return
+
+def _0x38(CPU):
+    val = CPU.memory[CPU.pc + 1]
+    if CPU.flags["C"] == 1:
+        val = convert_signed(val)
+        CPU.pc = CPU.pc + val
+        CPU.cycles = 12
+    else:
+        CPU.pc += 2
+        CPU.cycles = 8
+    self.mnemonic = "JR C i8"
     return
