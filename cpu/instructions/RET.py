@@ -45,3 +45,22 @@ def _0xD8(CPU):
         CPU.pc += 1
         CPU.cycles = 8
     CPU.mnemonic = "RET C"
+
+def _0xC9(CPU):
+    CPU.pc += 1
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    val = (msb << 8) | lsb
+    CPU.pc = val
+    CPU.mnemonic = "RET"
+    CPU.cycles = 16
+
+def _0xC9(CPU):
+    CPU.pc += 1
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    val = (msb << 8) | lsb
+    CPU.pc = val
+    CPU.enable_interrupts = True
+    CPU.mnemonic = "RETI"
+    CPU.cycles = 16

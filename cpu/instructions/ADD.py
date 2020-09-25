@@ -189,3 +189,73 @@ def _0xE8(CPU):
     CPU.pc += 2
     CPU.mnemonic = "ADD SP,i8"
     CPU.cycles = 16
+
+def _0x09(CPU):
+    val1 = (CPU.registers['B'] << 8) | CPU.registers['C']
+    val2 = (CPU.registers['H'] << 8) | CPU.registers['L']
+
+    val, cflag = check_carry(val1, val2, "16")
+    hcflag = check_halfcarry(val1, val2, "16")
+
+    CPU.registers['H'] = (val & 0xff00) >> 8
+    CPU.registers['L'] = val & 0xff
+
+    CPU.flags["S"] = 0
+    CPU.flags["HC"] = hcflag
+    CPU.flags["C"] = cflag
+    CPU.pc += 1
+    CPU.mnemonic = "ADD HL,BC"
+    CPU.cycles = 8
+
+def _0x19(CPU):
+    val1 = (CPU.registers['D'] << 8) | CPU.registers['E']
+    val2 = (CPU.registers['H'] << 8) | CPU.registers['L']
+
+    val, cflag = check_carry(val1, val2, "16")
+    hcflag = check_halfcarry(val1, val2, "16")
+
+    CPU.registers['H'] = (val & 0xff00) >> 8
+    CPU.registers['L'] = val & 0xff
+
+    CPU.flags["S"] = 0
+    CPU.flags["HC"] = hcflag
+    CPU.flags["C"] = cflag
+    CPU.pc += 1
+    CPU.mnemonic = "ADD HL,DE"
+    CPU.cycles = 8
+
+def _0x29(CPU):
+    val1 = (CPU.registers['H'] << 8) | CPU.registers['L']
+    val2 = (CPU.registers['H'] << 8) | CPU.registers['L']
+
+    val, cflag = check_carry(val1, val2, "16")
+    hcflag = check_halfcarry(val1, val2, "16")
+
+    CPU.registers['H'] = (val & 0xff00) >> 8
+    CPU.registers['L'] = val & 0xff
+
+    CPU.flags["S"] = 0
+    CPU.flags["HC"] = hcflag
+    CPU.flags["C"] = cflag
+    CPU.pc += 1
+    CPU.mnemonic = "ADD HL,DE"
+    CPU.cycles = 8
+
+def _0x39(CPU):
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    val1 = (msb << 8) | lsb
+    val2 = (CPU.registers['H'] << 8) | CPU.registers['L']
+
+    val, cflag = check_carry(val1, val2, "16")
+    hcflag = check_halfcarry(val1, val2, "16")
+
+    CPU.registers['H'] = (val & 0xff00) >> 8
+    CPU.registers['L'] = val & 0xff
+
+    CPU.flags["S"] = 0
+    CPU.flags["HC"] = hcflag
+    CPU.flags["C"] = cflag
+    CPU.pc += 1
+    CPU.mnemonic = "ADD HL,SP"
+    CPU.cycles = 8

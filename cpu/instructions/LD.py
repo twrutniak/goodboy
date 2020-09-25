@@ -393,3 +393,102 @@ def _0xf8(CPU):
     CPU.flags["C"] = cflag
     CPU.mnemonic = "LD HL, SP + i8"
     CPU.cycles = 4
+
+def _0x49(CPU):
+    CPU.pc += 1
+    CPU.registers['C'] = CPU.registers['C']
+    CPU.mnemonic = "LD C,C"
+    CPU.cycles = 4
+
+def _0x59(CPU):
+    CPU.pc += 1
+    CPU.registers['E'] = CPU.registers['C']
+    CPU.mnemonic = "LD E,C"
+    CPU.cycles = 4
+
+def _0x69(CPU):
+    CPU.pc += 1
+    CPU.registers['L'] = CPU.registers['C']
+    CPU.mnemonic = "LD L,C"
+    CPU.cycles = 4
+
+def _0x79(CPU):
+    CPU.pc += 1
+    CPU.registers['A'] = CPU.registers['C']
+    CPU.mnemonic = "LD A,C"
+    CPU.cycles = 4
+
+def _0xF9(CPU):
+    CPU.pc += 1 
+    CPU.stack.append(CPU.registers['L'])
+    CPU.stack.append(CPU.registers['H'])
+    CPU.mnemonic = "LD SP,HL"
+    CPU.cycles = 8
+
+def _0x0A(CPU):
+    CPU.pc += 1
+    addr = (CPU.registers['B'] < 8) | CPU.registers['C']
+    CPU.registers['A'] = CPU.memory[addr]
+    CPU.mnemonic = "LD A,(BC)"
+    CPU.cycles = 8
+
+def _0x1A(CPU):
+    CPU.pc += 1
+    addr = (CPU.registers['D'] < 8) | CPU.registers['E']
+    CPU.registers['A'] = CPU.memory[addr]
+    CPU.mnemonic = "LD A,(DE)"
+    CPU.cycles = 8
+
+def _0x2A(CPU):
+    CPU.pc += 1
+    addr = (CPU.registers['H'] < 8) | CPU.registers['L']
+    CPU.registers['A'] = CPU.memory[addr+1]
+    CPU.mnemonic = "LD A,(HL+)"
+    CPU.cycles = 8
+
+def _0x3A(CPU):
+    CPU.pc += 1
+    addr = (CPU.registers['H'] < 8) | CPU.registers['L']
+    CPU.registers['A'] = CPU.memory[addr-1]
+    CPU.mnemonic = "LD A,(HL-)"
+    CPU.cycles = 8
+
+def _0x4A(CPU):
+    CPU.pc += 1
+    CPU.registers['C'] = CPU.registers['D']
+    CPU.mnemonic = "LD C,D"
+    CPU.cycles = 4
+
+def _0x5A(CPU):
+    CPU.pc += 1
+    CPU.registers['E'] = CPU.registers['D']
+    CPU.mnemonic = "LD E,D"
+    CPU.cycles = 4
+
+def _0x6A(CPU):
+    CPU.pc += 1
+    CPU.registers['L'] = CPU.registers['D']
+    CPU.mnemonic = "LD L,D"
+    CPU.cycles = 4
+
+def _0x7A(CPU):
+    CPU.pc += 1
+    CPU.registers['A'] = CPU.registers['D']
+    CPU.mnemonic = "LD A,D"
+    CPU.cycles = 4
+
+def _0xEA(CPU):
+    lsb = CPU.memory[CPU.pc + 1]
+    msb = CPU.memory[CPU.pc + 2]
+    CPU.memory[(msb << 8) | lsb] = CPU.registers['A']
+    CPU.pc += 3
+    CPU.mnemonic = "LD (u16), A"
+    CPU.cycles = 16
+
+def _0xEA(CPU):
+    lsb = CPU.memory[CPU.pc + 1]
+    msb = CPU.memory[CPU.pc + 2]
+    CPU.registers['A'] = CPU.memory[(msb << 8) | lsb]
+    CPU.pc += 3
+    CPU.mnemonic = "LD A,(u16)"
+    CPU.cycles = 16
