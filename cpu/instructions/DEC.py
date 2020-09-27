@@ -48,3 +48,41 @@ def _0x35(CPU):
     CPU.flags["HC"] = hcflag
     CPU.mnemonic = "DEC (HL)"
     CPU.cycles = 12
+
+def _0x0B(CPU):
+    CPU.pc += 1
+    val = (CPU.registers["B"] << 8) | CPU.registers["C"]
+    val -= 1
+    CPU.registers["B"] = (val & 0xff00) >> 8
+    CPU.registers["C"] = val & 0xff
+    CPU.mnemonic = "DEC BC"
+    CPU.cycles = 8
+
+def _0x1B(CPU):
+    CPU.pc += 1
+    val = (CPU.registers["D"] << 8) | CPU.registers["E"]
+    val -= 1
+    CPU.registers["D"] = (val & 0xff00) >> 8
+    CPU.registers["E"] = val & 0xff
+    CPU.mnemonic = "DEC DE"
+    CPU.cycles = 8
+
+def _0x2B(CPU):
+    CPU.pc += 1
+    val = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    val -= 1
+    CPU.registers["H"] = (val & 0xff00) >> 8
+    CPU.registers["L"] = val & 0xff
+    CPU.mnemonic = "DEC HL"
+    CPU.cycles = 8
+
+def _0x3B(CPU):
+    CPU.pc += 1
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    val = (msb << 8) | lsb
+    val -= 1
+    CPU.stack.append((val & 0xff00) >> 8)
+    CPU.stack.append(val & 0xff)
+    CPU.mnemonic = "DEC SP"
+    CPU.cycles = 8

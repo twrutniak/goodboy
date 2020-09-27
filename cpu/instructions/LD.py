@@ -492,3 +492,27 @@ def _0xEA(CPU):
     CPU.pc += 3
     CPU.mnemonic = "LD A,(u16)"
     CPU.cycles = 16
+
+def _0x4B(CPU):
+    CPU.pc += 1
+    CPU.registers['C'] = CPU.registers['E']
+    CPU.mnemonic = "LD C,E"
+    CPU.cycles = 4
+
+def _0x5B(CPU):
+    CPU.pc += 1
+    CPU.registers['E'] = CPU.registers['E']
+    CPU.mnemonic = "LD E,E"
+    CPU.cycles = 4
+
+def _0x6B(CPU):
+    CPU.pc += 1
+    CPU.registers['L'] = CPU.registers['E']
+    CPU.mnemonic = "LD L,E"
+    CPU.cycles = 4
+
+def _0x7B(CPU):
+    CPU.pc += 1
+    CPU.registers['A'] = CPU.registers['E']
+    CPU.mnemonic = "LD A,E"
+    CPU.cycles = 4
