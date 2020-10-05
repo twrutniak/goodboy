@@ -36,3 +36,13 @@ def convert_signed(val):
     if (val >> 7) == 1:
         val = - (val & 127)
     return val
+
+def flip_bits(val):
+    bitstr = '{0:b}'.format(val)
+    flipped = ''
+    for bit in bitstr:
+        if bit == '1':
+            flipped += 0
+        else:
+            flipped += 1
+    return int(flipped, 2)

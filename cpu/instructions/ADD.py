@@ -1,4 +1,4 @@
-from .misc import *
+from misc import *
 
 def _0x80(CPU):
     CPU.pc += 1

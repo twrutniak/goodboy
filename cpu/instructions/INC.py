@@ -1,4 +1,4 @@
-from .misc import *
+from misc import check_halfcarry
 
 def _0x03(CPU):
     CPU.pc += 1
@@ -111,3 +111,60 @@ def _0x34(CPU):
     CPU.flags["S"] = 0
     CPU.mnemonic = "INC (HL)"
     CPU.cycles = 12
+
+def _0x0C(CPU):
+    CPU.pc += 1
+    hcflag = check_halfcarry(CPU.registers["C"], 1, "8")
+    CPU.registers["C"] += 1
+
+    CPU.flags["HC"] = hcflag
+    if CPU.registers["C"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["S"] = 0
+    CPU.mnemonic = "INC C"
+    CPU.cycles = 4
+
+def _0x1C(CPU):
+    CPU.pc += 1
+    hcflag = check_halfcarry(CPU.registers["E"], 1, "8")
+    CPU.registers["E"] += 1
+
+    CPU.flags["HC"] = hcflag
+    if CPU.registers["E"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["S"] = 0
+    CPU.mnemonic = "INC E"
+    CPU.cycles = 4
+
+def _0x2C(CPU):
+    CPU.pc += 1
+    hcflag = check_halfcarry(CPU.registers["L"], 1, "8")
+    CPU.registers["L"] += 1
+
+    CPU.flags["HC"] = hcflag
+    if CPU.registers["L"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["S"] = 0
+    CPU.mnemonic = "INC L"
+    CPU.cycles = 4
+
+def _0x3C(CPU):
+    CPU.pc += 1
+    hcflag = check_halfcarry(CPU.registers["A"], 1, "8")
+    CPU.registers["A"] += 1
+
+    CPU.flags["HC"] = hcflag
+    if CPU.registers["A"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["S"] = 0
+    CPU.mnemonic = "INC A"
+    CPU.cycles = 4
+
