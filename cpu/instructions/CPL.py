@@ -1,4 +1,4 @@
-from misc import flip_bits
+from .misc import flip_bits
 
 def _0x2F(CPU):
     CPU.pc += 1

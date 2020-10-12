@@ -1,4 +1,4 @@
-from misc import check_halfcarry, check_carry
+from .misc import check_halfcarry, check_carry
 
 def _0xB8(CPU):
     CPU.pc += 1

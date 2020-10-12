@@ -1,4 +1,4 @@
-from misc import check_halfcarry, check_carry
+from .misc import check_halfcarry, check_carry
 
 def _0x88(CPU):
     CPU.pc += 1
@@ -134,7 +134,7 @@ def _0x8E(CPU):
     CPU.mnemonic = "ADC A,(HL)"
     CPU.cycles = 8
 
-def _0x8B(CPU):
+def _0xCE(CPU):
     val1 = CPU.registers["A"]
     val2 = CPU.memory[CPU.pc + 1]
     CPU.pc += 2

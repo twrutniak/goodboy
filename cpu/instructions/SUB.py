@@ -1,3 +1,5 @@
+from .misc import check_carry, check_halfcarry
+
 def _0x90(CPU):
     CPU.pc += 1
     val1 = CPU.registers["A"]
@@ -54,7 +56,7 @@ def _0x92(CPU):
     CPU.mnemonic = "SUB A,D"
     CPU.cycles = 4
 
-    def _0x93(CPU):
+def _0x93(CPU):
     CPU.pc += 1
     val1 = CPU.registers["A"]
     val2 = CPU.registers["E"]

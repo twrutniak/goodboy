@@ -1,4 +1,4 @@
-from misc import * 
+from .misc import check_halfcarry, check_carry, convert_signed
 
 def _0x40(CPU):
     CPU.pc += 1
@@ -377,7 +377,7 @@ def _0x78(CPU):
     CPU.mnemonic = "LD A,B"
     CPU.cycles = 4
 
-def _0xf8(CPU):
+def _0xF8(CPU):
     val = convert_signed(CPU.memory[CPU.pc + 1])
     CPU.pc += 2
     msb = CPU.stack.pop()
@@ -485,7 +485,7 @@ def _0xEA(CPU):
     CPU.mnemonic = "LD (u16), A"
     CPU.cycles = 16
 
-def _0xEA(CPU):
+def _0xFA(CPU):
     lsb = CPU.memory[CPU.pc + 1]
     msb = CPU.memory[CPU.pc + 2]
     CPU.registers['A'] = CPU.memory[(msb << 8) | lsb]

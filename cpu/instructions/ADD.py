@@ -1,4 +1,4 @@
-from misc import *
+from .misc import check_carry, check_halfcarry, convert_signed
 
 def _0x80(CPU):
     CPU.pc += 1

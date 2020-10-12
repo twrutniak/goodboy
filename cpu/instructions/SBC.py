@@ -1,4 +1,4 @@
-from misc import check_carry, check_halfcarry
+from .misc import check_carry, check_halfcarry
 
 def _0x98(CPU):
     CPU.pc += 1

@@ -1,4 +1,4 @@
-from misc import check_halfcarry
+from .misc import check_halfcarry
 
 def _0x03(CPU):
     CPU.pc += 1

@@ -1,3 +1,5 @@
+from .dispatcher import dispatch
+
 class CPU:
     def __init__(self):
 
@@ -5,6 +7,8 @@ class CPU:
 
         self.pc = 0x100
         self.stack = []
+        self.memory = [0] * 0xFFFF
+        self.memory[0x100] = 0x53
         self.cycles = 0
         self.mnemonic = ""
         self.instruction = ""
@@ -20,15 +24,24 @@ class CPU:
             "L":0, 
         }
 
+        self.registers["E"] = 6
+
         self.flags = {
             "Z":0,
             "S":0,
             "HC":0,
             "C":0,
         }
+
+        self.log.write('CPU initialized.\n')
     
+    def load_rom(self, rom_path):
+        self.log.write("Loading %s..." % rom_path)
+        binary = open(rom_path, "rb").read()
+        i = 0
+        while i < len(binary):
+            self.memory[i] = ord(binary[i])
+            i += 1
+
     def write_log(self):
-        log.write("{} {}   {}\n".format(hex(self.pc), hex(self.memory[self.pc]), self.mnemonic)
-
-
-
+        self.log.write("\nPC: {} instruction: {}   mnemonic: {}\n{}\n".format(hex(self.pc), hex(self.memory[self.pc]), self.mnemonic, str(self.registers)))

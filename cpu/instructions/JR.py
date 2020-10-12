@@ -9,7 +9,7 @@ def _0x20(CPU):
     else:
         CPU.pc += 2
         CPU.cycles = 8
-    self.mnemonic = "JR NZ i8"
+    CPU.mnemonic = "JR NZ i8"
     return
 
 def _0x30(CPU):
@@ -21,12 +21,12 @@ def _0x30(CPU):
     else:
         CPU.pc += 2
         CPU.cycles = 8
-    self.mnemonic = "JR NC i8"
+    CPU.mnemonic = "JR NC i8"
     return
 
 def _0x18(CPU):
     val = CPU.memory[CPU.pc + 1]
-        val = convert_signed(val)
+    val = convert_signed(val)
     CPU.pc = CPU.pc + val
     CPU.mnemonic = "JR i8"
     CPU.cycles = 12
@@ -40,7 +40,7 @@ def _0x28(CPU):
     else:
         CPU.pc += 2
         CPU.cycles = 8
-    self.mnemonic = "JR Z i8"
+    CPU.mnemonic = "JR Z i8"
     return
 
 def _0x38(CPU):
@@ -52,5 +52,5 @@ def _0x38(CPU):
     else:
         CPU.pc += 2
         CPU.cycles = 8
-    self.mnemonic = "JR C i8"
+    CPU.mnemonic = "JR C i8"
     return

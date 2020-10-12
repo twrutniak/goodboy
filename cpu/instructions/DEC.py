@@ -1,4 +1,4 @@
-from misc import check_halfcarry, check_carry
+from .misc import check_halfcarry, check_carry
 
 # needs some tweaking with HC flag
 def _0x05(CPU):
