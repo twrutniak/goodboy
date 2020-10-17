@@ -1,4 +1,4 @@
 def _0x00(CPU):
-    CPU.mnemonic = "NOP"
-    CPU.pc += 1
+    CPU.write_log("NOP")
     CPU.cycles = 4
+    CPU.pc += 1

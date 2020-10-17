@@ -33,9 +33,10 @@ def check_halfcarry(val1, val2, datatype):
     return flag
 
 def convert_signed(val):
-    if (val >> 7) == 1:
-        val = - (val & 127)
-    return val
+    if val > 127:
+        return (256-val) * (-1)
+    else:
+        return val
 
 def flip_bits(val):
     bitstr = '{0:b}'.format(val)

@@ -1,4 +1,5 @@
 from .dispatcher import dispatch
+from random import randint
 
 class CPU:
     def __init__(self):
@@ -7,11 +8,12 @@ class CPU:
 
         self.pc = 0x100
         self.stack = []
-        self.memory = [0] * 0xFFFF
-        self.memory[0x100] = 0x53
+        self.memory = [0] * 0x10000
         self.cycles = 0
-        self.mnemonic = ""
+        self.enable_interrupts = True
         self.instruction = ""
+        self.logging = True
+        self.last_write = 0
 
         self.registers = {
             "A":0,
@@ -24,11 +26,9 @@ class CPU:
             "L":0, 
         }
 
-        self.registers["E"] = 6
-
         self.flags = {
             "Z":0,
-            "S":0,
+            "N":0,
             "HC":0,
             "C":0,
         }
@@ -40,8 +40,11 @@ class CPU:
         binary = open(rom_path, "rb").read()
         i = 0
         while i < len(binary):
-            self.memory[i] = ord(binary[i])
+            self.memory[i] = binary[i]
             i += 1
 
-    def write_log(self):
-        self.log.write("\nPC: {} instruction: {}   mnemonic: {}\n{}\n".format(hex(self.pc), hex(self.memory[self.pc]), self.mnemonic, str(self.registers)))
+    def write_log(self, mnemonic):
+        if self.logging:
+            self.log.write("\nPC: {} instruction: {}   mnemonic: {}\n{}\n{}\n".format(hex(self.pc), hex(self.memory[self.pc]), mnemonic, str(self.registers), str(self.flags)))
+        else:
+            return
