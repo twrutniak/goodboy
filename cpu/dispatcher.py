@@ -1,4 +1,4 @@
-from .instructions import JP, NOP, LD, INC, JR, DEC, DI
+from .instructions import JP, NOP, LD, INC, JR, DEC, DI, CALL, RET, PUSH, POP, OR, CP
 
 def dispatch(CPU):
     pc = CPU.pc
@@ -42,5 +42,45 @@ def dispatch(CPU):
         LD._0x31(CPU)
     elif instruction == 0xEA:
         LD._0xEA(CPU)
+    elif instruction == 0x3E:
+        LD._0x3E(CPU)
+    elif instruction == 0xE0:
+        LD._0xE0(CPU)
+    elif instruction == 0xCD:
+        CALL._0xCD(CPU)
+    elif instruction == 0x7D:
+        LD._0x7D(CPU)
+    elif instruction == 0x7C:
+        LD._0x7C(CPU)
+    elif instruction == 0x18:
+        JR._0x18(CPU)
+    elif instruction == 0xC9:
+        RET._0xC9(CPU)
+    elif instruction == 0xE5:
+        PUSH._0xE5(CPU)
+    elif instruction == 0xE1:
+        POP._0xE1(CPU)
+    elif instruction == 0xF5:
+        PUSH._0xF5(CPU)
+    elif instruction == 0x23:
+        INC._0x23(CPU)
+    elif instruction == 0xF1:
+        POP._0xF1(CPU)
+    elif instruction == 0xC5:
+        PUSH._0xC5(CPU)
+    elif instruction == 0x03:
+        INC._0x03(CPU)
+    elif instruction == 0xB1:
+        OR._0xB1(CPU)
+    elif instruction == 0x28:
+        JR._0x28(CPU)
+    elif instruction == 0xF0:
+        LD._0xF0(CPU)
+    elif instruction == 0xFE:
+        CP._0xFE(CPU)
+    elif instruction == 0xC1:
+        POP._0xC1(CPU)
+    elif instruction == 0xFA:
+        LD._0xFA(CPU)
     else:
         print("Unsupported instruction %s" % hex(instruction))

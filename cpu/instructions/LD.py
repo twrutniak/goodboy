@@ -58,7 +58,7 @@ def _0x01(CPU):
     lsb = CPU.memory[CPU.pc + 1]
     CPU.registers["B"] = msb
     CPU.registers["C"] = lsb
-    CPU.write_log("LD BC, u16 " + format(msb, 'x') + format(lsb, 'x'))
+    CPU.write_log("LD BC, u16 " + format(msb, 'x') +  ' ' + format(lsb, 'x'))
     CPU.cycles = 12
     CPU.pc += 3
 
@@ -67,7 +67,7 @@ def _0x31(CPU):
     lsb = CPU.memory[CPU.pc + 1]
     CPU.stack.append(lsb)
     CPU.stack.append(msb)
-    CPU.write_log("LD SP, u16 " + format(msb, 'x') + format(lsb, 'x'))
+    CPU.write_log("LD SP, u16 " + format(msb, 'x') +  ' ' + format(lsb, 'x'))
     CPU.cycles = 12
     CPU.pc += 3
 
@@ -76,6 +76,51 @@ def _0xEA(CPU):
     lsb = CPU.memory[CPU.pc + 1]
     addr = (msb << 8) | lsb
     CPU.memory[addr] = CPU.registers["A"]
-    CPU.write_log("LD (u16), A " + format(msb, 'x') + format(lsb, 'x'))
+    CPU.write_log("LD (u16), A " + format(msb, 'x') +  ' ' + format(lsb, 'x'))
+    CPU.cycles = 16
+    CPU.pc += 3
+
+def _0x3E(CPU):
+    val = CPU.memory[CPU.pc + 1]
+    CPU.registers["A"] = val
+    CPU.write_log("LD A, u8 " + format(val, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 2
+
+def _0xE0(CPU):
+    val = CPU.memory[CPU.pc + 1]
+    addr = 0xFF00 + val
+    CPU.memory[addr] = CPU.registers["A"]
+    CPU.write_log("LD (FF00+u8),A " + format(val, 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 12
+    CPU.pc += 2
+
+def _0x7D(CPU):
+    CPU.registers["A"] = CPU.registers["L"]
+    CPU.write_log("LD A, L")
+    CPU.cycles = 4
+    CPU.pc += 1
+
+def _0x7C(CPU):
+    CPU.registers["A"] = CPU.registers["H"]
+    CPU.write_log("LD A, H")
+    CPU.cycles = 4
+    CPU.pc += 1
+
+def _0xF0(CPU):
+    val = CPU.memory[CPU.pc + 1]
+    addr = 0xFF00 + val
+    CPU.registers["A"] = CPU.memory[addr]
+    CPU.write_log("LD A,(FF00+u8) " + format(CPU.memory[addr], 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 12
+    CPU.pc += 2
+
+def _0xFA(CPU):
+    msb = CPU.memory[CPU.pc + 2]
+    lsb = CPU.memory[CPU.pc + 1]
+    addr = (msb << 8) | lsb
+    val = CPU.memory[addr]
+    CPU.registers["A"] = val
+    CPU.write_log("LD A,(u16) " + format(val, 'x') + ' ' + format(CPU.memory[addr], 'x'))
     CPU.cycles = 16
     CPU.pc += 3

@@ -44,3 +44,25 @@ def _0x04(CPU):
     CPU.write_log("INC B " + format(CPU.registers["B"], 'x'))
     CPU.cycles = 4
     CPU.pc += 1
+
+def _0x23(CPU):
+    val = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    val += 1
+    if val > 0xFFFF:
+        val = 0x0000
+    CPU.registers["H"] = (val >> 8)
+    CPU.registers["L"] = val & 0xFF
+    CPU.write_log("INC HL " + format(CPU.registers["H"], 'x') + ' ' + format(CPU.registers["L"]))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x03(CPU):
+    val = (CPU.registers["B"] << 8) | CPU.registers["C"]
+    val += 1
+    if val > 0xFFFF:
+        val = 0x0000
+    CPU.registers["B"] = (val >> 8)
+    CPU.registers["C"] = val & 0xFF
+    CPU.write_log("INC BC " + format(CPU.registers["B"], 'x') + ' ' + format(CPU.registers["C"], 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1

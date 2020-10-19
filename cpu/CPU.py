@@ -9,6 +9,7 @@ class CPU:
         self.pc = 0x100
         self.stack = []
         self.memory = [0] * 0x10000
+        self.memory[0xFF44] = 144
         self.cycles = 0
         self.enable_interrupts = True
         self.instruction = ""
