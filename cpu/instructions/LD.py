@@ -34,6 +34,8 @@ def _0x2A(CPU):
     val = CPU.memory[addr]
     CPU.registers["A"] = val
     addr += 1
+    if addr > 0xFFFF:
+        addr = 0
     CPU.registers["H"] = (addr >> 8)
     CPU.registers["L"] = (addr & 0x00ff)
     CPU.write_log("LD A, (HL+) " + format(val, 'x') + ' ' + format(addr, 'x'))
@@ -121,6 +123,76 @@ def _0xFA(CPU):
     addr = (msb << 8) | lsb
     val = CPU.memory[addr]
     CPU.registers["A"] = val
-    CPU.write_log("LD A,(u16) " + format(val, 'x') + ' ' + format(CPU.memory[addr], 'x'))
+    CPU.write_log("LD A,(u16) " + format(val, 'x') + ' ' + format(addr, 'x'))
     CPU.cycles = 16
     CPU.pc += 3
+
+def _0x06(CPU):
+    val = CPU.memory[CPU.pc + 1]
+    CPU.registers["B"] = val
+    CPU.write_log("LD B, u8 " + format(val, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 2
+
+def _0x77(CPU):
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    CPU.memory[addr] = CPU.registers["A"]
+    CPU.write_log("LD (HL), A " + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x1A(CPU):
+    addr = (CPU.registers["D"] << 8) | CPU.registers["E"]
+    val = CPU.memory[addr]
+    CPU.registers["A"] = val
+    CPU.write_log("LD A, (DE) " + format(val, 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x22(CPU):
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    CPU.memory[addr] = CPU.registers["A"]
+    addr += 1
+    if addr > 0xFFFF:
+        addr = 0
+    CPU.registers["H"] = (addr >> 8)
+    CPU.registers["L"] = (addr & 0x00ff)
+    CPU.write_log("LD (HL+), A " + format(CPU.registers["A"], 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x32(CPU):
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    CPU.memory[addr] = CPU.registers["A"]
+    addr -= 1
+    if addr < 0:
+        addr = 0xFFFF
+    CPU.registers["H"] = (addr >> 8)
+    CPU.registers["L"] = (addr & 0x00ff)
+    CPU.write_log("LD (HL-), A " + format(CPU.registers["A"], 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x46(CPU):
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    val = CPU.memory[addr]
+    CPU.registers["B"] = val
+    CPU.write_log("LD B, (HL) " + format(val, 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x4E(CPU):
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    val = CPU.memory[addr]
+    CPU.registers["C"] = val
+    CPU.write_log("LD C, (HL) " + format(val, 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1
+
+def _0x56(CPU):
+    addr = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    val = CPU.memory[addr]
+    CPU.registers["D"] = val
+    CPU.write_log("LD D, (HL) " + format(val, 'x') + ' ' + format(addr, 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1

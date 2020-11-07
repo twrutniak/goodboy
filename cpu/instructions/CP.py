@@ -7,7 +7,7 @@ def _0xFE(CPU):
     else:
         CPU.flags["C"] = 0
     if (CPU.registers["A"] & 0xF) < (val & 0xF):
-        CPU.registers["HC"] = 1
+        CPU.flags["HC"] = 1
     else:
         CPU.flags["HC"] = 0
     if (CPU.registers["A"] - val) == 0:

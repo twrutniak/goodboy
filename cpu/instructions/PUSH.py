@@ -19,3 +19,10 @@ def _0xC5(CPU):
     CPU.write_log("PUSH BC")
     CPU.cycles = 16
     CPU.pc += 1
+
+def _0xD5(CPU):
+    CPU.stack.append(CPU.registers["E"])
+    CPU.stack.append(CPU.registers["D"])
+    CPU.write_log("PUSH DE")
+    CPU.cycles = 16
+    CPU.pc += 1

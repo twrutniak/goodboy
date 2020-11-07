@@ -66,3 +66,44 @@ def _0x03(CPU):
     CPU.write_log("INC BC " + format(CPU.registers["B"], 'x') + ' ' + format(CPU.registers["C"], 'x'))
     CPU.cycles = 8
     CPU.pc += 1
+
+def _0x2C(CPU):
+    hcflag = check_halfcarry(CPU.registers["L"], 1, '8')
+    CPU.flags["HC"] = hcflag
+    CPU.registers["L"] += 1
+    if CPU.registers["L"] > 0xFF:
+        CPU.registers["L"] = 0
+    if CPU.registers["L"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["N"] = 0
+    CPU.write_log("INC L " + format(CPU.registers["L"], 'x'))
+    CPU.cycles = 4
+    CPU.pc += 1
+
+def _0x24(CPU):
+    hcflag = check_halfcarry(CPU.registers["H"], 1, '8')
+    CPU.flags["HC"] = hcflag
+    CPU.registers["H"] += 1
+    if CPU.registers["H"] > 0xFF:
+        CPU.registers["H"] = 0
+    if CPU.registers["H"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["N"] = 0
+    CPU.write_log("INC H " + format(CPU.registers["H"], 'x'))
+    CPU.cycles = 4
+    CPU.pc += 1
+
+def _0x13(CPU):
+    val = (CPU.registers["D"] << 8) | CPU.registers["E"]
+    val += 1
+    if val > 0xFFFF:
+        val = 0x0000
+    CPU.registers["D"] = (val >> 8)
+    CPU.registers["E"] = val & 0xFF
+    CPU.write_log("INC DE " + format(CPU.registers["D"], 'x') + ' ' + format(CPU.registers["E"], 'x'))
+    CPU.cycles = 8
+    CPU.pc += 1

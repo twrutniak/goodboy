@@ -5,3 +5,4 @@ def __0xC3(CPU):
     CPU.write_log("JP u16 " + format(val, "x"))
     CPU.cycles = 16
     CPU.pc = val
+
