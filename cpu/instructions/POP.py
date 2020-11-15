@@ -27,3 +27,12 @@ def _0xC1(CPU):
     CPU.write_log("POP BC")
     CPU.cycles = 12
     CPU.pc += 1
+
+def _0xD1(CPU):
+    msb = CPU.stack.pop()
+    lsb = CPU.stack.pop()
+    CPU.registers["D"] = msb
+    CPU.registers["E"] = lsb
+    CPU.write_log("POP DE")
+    CPU.cycles = 12
+    CPU.pc += 1

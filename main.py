@@ -1,7 +1,7 @@
 from cpu.CPU import CPU, dispatch
 
 emulator = CPU()
-emulator.load_rom('tests/06-ld r,r.gb')
+emulator.load_rom('tests/07-jr,jp,call,ret,rst.gb')
 
 while True:
     if emulator.cycles != 0:

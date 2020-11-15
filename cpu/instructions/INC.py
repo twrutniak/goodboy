@@ -107,3 +107,18 @@ def _0x13(CPU):
     CPU.write_log("INC DE " + format(CPU.registers["D"], 'x') + ' ' + format(CPU.registers["E"], 'x'))
     CPU.cycles = 8
     CPU.pc += 1
+
+def _0x3C(CPU):
+    hcflag = check_halfcarry(CPU.registers["A"], 1, '8')
+    CPU.flags["HC"] = hcflag
+    CPU.registers["A"] += 1
+    if CPU.registers["A"] > 0xFF:
+        CPU.registers["A"] = 0
+    if CPU.registers["A"] == 0:
+        CPU.flags["Z"] = 1
+    else:
+        CPU.flags["Z"] = 0
+    CPU.flags["N"] = 0
+    CPU.write_log("INC A " + format(CPU.registers["A"], 'x'))
+    CPU.cycles = 4
+    CPU.pc += 1
