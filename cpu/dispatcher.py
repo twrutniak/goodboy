@@ -1,4 +1,4 @@
-from .instructions import JP, NOP, LD, INC, JR, DEC, DI, CALL, RET, PUSH, POP, OR, CP, AND, XOR, ADD, SUB, SRL, RR, RRA, ADC
+from .instructions import JP, NOP, LD, INC, JR, DEC, DI, CALL, RET, PUSH, POP, OR, CP, AND, XOR, ADD, SUB, SRL, RR, RRA, ADC, SCF, SWAP
 
 def dispatch(CPU):
     pc = CPU.pc
@@ -276,6 +276,14 @@ def dispatch(CPU):
         INC._0x3C(CPU)
     elif instruction == 0xD8:
         RET._0xD8(CPU)
+    elif instruction == 0x08:
+        LD._0x08(CPU)
+    elif instruction == 0xF9:
+        LD._0xF9(CPU)
+    elif instruction == 0xC2:
+        JP._0xC2(CPU)
+    elif instruction == 0x38:
+        JR._0x38(CPU)
     elif instruction == 0xCB:
         instruction = CPU.memory[pc + 1]
         if instruction == 0x38:
@@ -286,6 +294,8 @@ def dispatch(CPU):
             RR._0x1A(CPU)
         elif instruction == 0x1B:
             RR._0x1B(CPU)
+        elif instruction == 0x37:
+            SWAP._0x37(CPU)
         else:
             print("Unsupported CB table instruction %s" % hex(instruction)) 
     else:

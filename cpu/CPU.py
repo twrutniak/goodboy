@@ -7,6 +7,7 @@ class CPU:
         self.log = open("log.txt", "w")
 
         self.pc = 0x100
+        self.sp = 0xFFFF
         self.stack = []
         self.memory = [0] * 0x10000
         self.memory[0xFF44] = 144
@@ -36,6 +37,17 @@ class CPU:
 
         self.log.write('CPU initialized.\n')
     
+    def push_stack(self, val):
+        self.sp -= 1
+        self.memory[self.sp] = val
+        return self.sp
+
+    def pop_stack(self):
+        val = self.memory[self.sp]
+        self.memory[self.sp] = 0
+        self.sp += 1
+        return val    
+
     def load_rom(self, rom_path):
         self.log.write("Loading %s..." % rom_path)
         binary = open(rom_path, "rb").read()

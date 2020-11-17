@@ -1,6 +1,8 @@
 def _0xC9(CPU):
-    msb = CPU.stack.pop()
-    lsb = CPU.stack.pop()
+    #msb = CPU.stack.pop()
+    #lsb = CPU.stack.pop()
+    msb = CPU.pop_stack()
+    lsb = CPU.pop_stack()
     addr = (msb << 8) | lsb
     CPU.write_log("RET " + format(addr, 'x'))
     CPU.pc = addr
@@ -8,8 +10,10 @@ def _0xC9(CPU):
 
 def _0xD0(CPU):
     if CPU.flags["C"] == 0:
-        msb = CPU.stack.pop()
-        lsb = CPU.stack.pop()
+        #msb = CPU.stack.pop()
+        #lsb = CPU.stack.pop()
+        msb = CPU.pop_stack()
+        lsb = CPU.pop_stack()
         addr = (msb << 8) | lsb
         CPU.write_log("RET NC " + format(addr, "x"))
         CPU.pc = addr
@@ -21,8 +25,10 @@ def _0xD0(CPU):
 
 def _0xD8(CPU):
     if CPU.flags["C"] == 1:
-        msb = CPU.stack.pop()
-        lsb = CPU.stack.pop()
+        #msb = CPU.stack.pop()
+        #lsb = CPU.stack.pop()
+        msb = CPU.pop_stack()
+        lsb = CPU.pop_stack()
         addr = (msb << 8) | lsb
         CPU.write_log("RET C " + format(addr, "x"))
         CPU.pc = addr
@@ -34,8 +40,10 @@ def _0xD8(CPU):
 
 def _0xC8(CPU):
     if CPU.flags["Z"] == 1:
-        msb = CPU.stack.pop()
-        lsb = CPU.stack.pop()
+        #msb = CPU.stack.pop()
+        #lsb = CPU.stack.pop()
+        msb = CPU.pop_stack()
+        lsb = CPU.pop_stack()
         addr = (msb << 8) | lsb
         CPU.write_log("RET Z " + format(addr, "x"))
         CPU.pc = addr

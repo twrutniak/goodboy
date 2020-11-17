@@ -67,8 +67,7 @@ def _0x01(CPU):
 def _0x31(CPU):
     msb = CPU.memory[CPU.pc + 2]
     lsb = CPU.memory[CPU.pc + 1]
-    CPU.stack.append(lsb)
-    CPU.stack.append(msb)
+    CPU.sp = (msb << 8) | lsb
     CPU.write_log("LD SP,u16 " + format(msb, 'x') +  ' ' + format(lsb, 'x'))
     CPU.cycles = 12
     CPU.pc += 3
@@ -559,4 +558,24 @@ def _0x7F(CPU):
     CPU.registers["A"] = CPU.registers["A"]
     CPU.write_log("LD A,A ")
     CPU.cycles = 4
+    CPU.pc += 1
+
+def _0x08(CPU):
+    msb = CPU.memory[CPU.pc + 2]
+    lsb = CPU.memory[CPU.pc + 1]
+    addr = (msb << 8) | lsb
+    stack_msb = CPU.pop_stack()
+    stack_lsb = CPU.pop_stack()
+    CPU.memory[addr] = stack_lsb
+    CPU.memory[addr + 1] = stack_msb
+    CPU.write_log("LD (u16),SP " + format(addr, 'x') +  ' ' + format(stack_msb, 'x') +  ' ' + format(stack_lsb, 'x'))
+    CPU.cycles = 20
+    CPU.pc += 3
+
+def _0xF9(CPU):
+    #CPU.stack.append(CPU.registers["L"])
+    #CPU.stack.append(CPU.registers["H"])
+    CPU.sp = (CPU.registers["H"] << 8) | CPU.registers["L"]
+    CPU.write_log("LD SP,HL " +  ' ' + format(CPU.registers["H"], 'x') +  ' ' + format(CPU.registers["L"], 'x'))
+    CPU.cycles = 8
     CPU.pc += 1

@@ -4,8 +4,10 @@ def _0xCD(CPU):
     CPU.pc += 3
     msb = CPU.pc >> 8
     lsb = CPU.pc & 0x00FF
-    CPU.stack.append(lsb)
-    CPU.stack.append(msb)
+    #CPU.stack.append(lsb)
+    #CPU.stack.append(msb)
+    CPU.push_stack(lsb)
+    CPU.push_stack(msb)
     CPU.cycles = 24
     CPU.pc = addr
 
@@ -16,8 +18,10 @@ def _0xC4(CPU):
         CPU.pc += 3
         msb = CPU.pc >> 8
         lsb = CPU.pc & 0x00FF
-        CPU.stack.append(lsb)
-        CPU.stack.append(msb)
+        #CPU.stack.append(lsb)
+        #CPU.stack.append(msb)
+        CPU.push_stack(lsb)
+        CPU.push_stack(msb)
         CPU.cycles = 24
         CPU.pc = addr
     else:

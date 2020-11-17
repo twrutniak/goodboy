@@ -11,3 +11,16 @@ def __0xE9(CPU):
     CPU.write_log("JP HL " + format(val, "x"))
     CPU.cycles = 4
     CPU.pc = val
+
+def _0xC2(CPU):
+    msb = CPU.memory[CPU.pc + 2]
+    lsb = CPU.memory[CPU.pc + 1]
+    addr = (msb << 8) | lsb
+    if CPU.flags["Z"] == 0:
+        CPU.write_log("JP NZ,u16 " + format(addr, "x"))
+        CPU.cycles = 16
+        CPU.pc = addr
+    else:
+        CPU.write_log("JP NZ,u16 " + format(addr, "x"))
+        CPU.pc += 3
+        CPU.cycles = 12
